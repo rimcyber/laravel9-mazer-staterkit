@@ -6,7 +6,7 @@ $classes = request()->routeIs($active) ? 'active' : '';
 
 <li class="sidebar-item {{ $classes }}">
     <a href="{{ $link }}" class='sidebar-link'>
-        <i class="{{ $icon }}"></i>
+        <i class="bi bi-{{ $icon }}"></i>
         <span>{{ $name }}</span>
     </a>
 </li>
