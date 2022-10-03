@@ -44,7 +44,7 @@
                         <td>
                             <div class="avatar avatar-xl">
                                 @if (empty($user->profile->avatar))
-                                    <img src="{{ Vite::asset('resources/images/faces/1.jpg') }}" alt="avatar">
+                                    <img src="{{ Vite::asset('public/images/faces/1.jpg') }}" alt="avatar">
                                 @else
                                     <img src="{{ url('storage/avatar/' . $user->profile->avatar) }}" alt="avatar">
                                 @endif

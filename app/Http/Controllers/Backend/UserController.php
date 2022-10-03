@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\{StoreUserRequest, UpdateUserRequest, UpdatePasswordRequest, ProfileRequest};
+use App\Http\Requests\{UserRequest, UpdateUserRequest, UpdatePasswordRequest, ProfileRequest};
 use App\Models\User;
 use App\Models\Profile;
 use Illuminate\Support\Facades\Auth;
@@ -25,7 +25,7 @@ class UserController extends Controller
         return view('backend.user.create');
     }
 
-    public function store(StoreUserRequest $request)
+    public function store(UserRequest $request)
     {
         $attr = $request->validated();
         $attr['password'] = bcrypt($request->password);
@@ -125,8 +125,6 @@ class UserController extends Controller
             }
 
             $attr['avatar'] = $filename;
-        } else {
-            $attr['avatar'] = $profile->avatar;
         }
 
         $user = User::find($id);
@@ -147,8 +145,8 @@ class UserController extends Controller
 
     public function destroy(User $user)
     {
-
-        $user->delete(['deleted_by' => Auth::user()->id]);
+        $user->update(['deleted_by' => Auth::user()->id]);
+        $user->delete();
 
         return redirect()->route('users.index')->with('success', __('User deleted successfully.'));
     }
@@ -163,7 +161,7 @@ class UserController extends Controller
     {
         $user = User::withTrashed()->findOrFail($id);
         if ($user->trashed()) {
-
+            $user->update(['restore_by' => Auth::user()->profile->name]);
             $user->restore();
 
             return redirect()->route('users.trash')->with('success', 'Data successfully restored');

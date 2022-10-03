@@ -50,7 +50,7 @@
                             <div class="user-img d-flex align-items-center">
                                 <div class="avatar avatar-md">
                                     @if (empty(Auth::user()->profile->avatar))
-                                        <img src="{{ Vite::asset('resources/images/faces/1.jpg') }}" alt="">
+                                        <img src="{{ Vite::asset('public/images/faces/1.jpg') }}" alt="">
                                     @else
                                         <img src="{{ url('storage/avatar/' . Auth::user()->profile->avatar) }}"
                                             alt="">

@@ -1,7 +1,7 @@
 @props(['active', 'icon', 'name'])
 
 @php
-$classes = request()->routeIs($active) ? 'active' : '';
+$classes = request()->segment(2) == $active ? 'active' : '';
 @endphp
 
 <li class="sidebar-item {{ $classes }} has-sub">
@@ -9,7 +9,7 @@ $classes = request()->routeIs($active) ? 'active' : '';
         <i class="bi bi-{{ $icon }}"></i>
         <span>{{ $name }}</span>
     </a>
-    <ul class="submenu ">
+    <ul class="submenu {{ $classes }}">
         {{ $slot ?? '' }}
     </ul>
 </li>

@@ -61,6 +61,28 @@ Route::group(['namespace' => 'App\Http\Controllers\Backend', 'prefix' => 'admin'
     */
     Route::get('settings', 'SettingController@index')->name('settings.index');
     Route::post('settings', 'SettingController@store')->name('settings.store');
+
+    /*
+    *
+    *  Category Routes
+    *
+    * ---------------------------------------------------------------------
+    */
+    Route::resource('article/category', CategoryController::class);
+    Route::get('article/category/trash', 'CategoryController@trash')->name('category.trash');
+    Route::post('article/category/{id}/restore', 'CategoryController@restore')->name('category.restore');
+    Route::delete('article/category/force/{id}', 'CategoryController@deletePermanent')->name('category.force');
+
+    /*
+    *
+    *  Post Routes
+    *
+    * ---------------------------------------------------------------------
+    */
+    Route::resource('article/post', PostController::class);
+    Route::get('article/post/trash', 'PostController@trash')->name('post.trash');
+    Route::post('article/post/{id}/restore', 'PostController@restore')->name('post.restore');
+    Route::delete('article/post/force/{id}', 'PostController@deletePermanent')->name('post.force');
 });
 
 

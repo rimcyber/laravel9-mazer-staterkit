@@ -13,7 +13,7 @@
                     <td>Avatar</td>
                     <td>
                         @if (empty($user->profile->avatar))
-                            <img src="{{ Vite::asset('resources/images/faces/1.jpg') }}"
+                            <img src="{{ Vite::asset('public/images/faces/1.jpg') }}"
                                 style="max-height:200px; max-width:200px;" alt="avatar">
                         @else
                             <img src="{{ url('storage/avatar/' . $user->profile->avatar) }}"
