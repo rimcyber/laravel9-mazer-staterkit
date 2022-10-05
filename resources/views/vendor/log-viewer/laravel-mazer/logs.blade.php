@@ -1,7 +1,12 @@
 <x-app-layout>
     @include('backend.layouts.log-viewer-style')
-    <x-card-index :icon="'journal-text'" :title="'Logs by Date'" :btn1_link="''" :btn1_color="''" :btn1_title="''"
-        :btn1_icon="''" :btn2_link="url('admin/log-viewer')" :btn2_color="'warning'" :btn2_title="'Back'" :btn2_icon="'reply-fill'">
+    <x-card.index>
+        <x-slot name="header">
+            <x-card.title :icon="'journal-text'" :title="'Logs by Date'"></x-card.title>
+            <div>
+                <x-button.back :href="url('admin/log-viewer')"></x-button.back>
+            </div>
+        </x-slot>
         <div class="row mt-4">
             <div class="col">
                 <div class="table-responsive">
@@ -43,12 +48,9 @@
                                             </td>
                                         @endforeach
                                         <td class="text-center">
-                                            <x-btn-icon :href="route('log-viewer::logs.show', [$date])" :color="'info'" :icon="'search'"
-                                                :title="'Search'"></x-btn-icon>
-                                            <x-btn-icon :href="route('log-viewer::logs.download', [$date])" :color="'success'" :icon="'download'"
-                                                :title="'Download'"></x-btn-icon>
-                                            <x-btn-icon :href="'#delete-log-modal'" :color="'danger'" :icon="'trash'"
-                                                :title="'Delete'"></x-btn-icon>
+                                            <x-button.search :href="route('log-viewer::logs.show', [$date])"></x-button.search>
+                                            <x-button.download :href="route('log-viewer::logs.download', [$date])"></x-button.download>
+                                            <x-button.trash :href="'#delete-log-modal'"></x-button.trash>
                                         </td>
                                     </tr>
                                 @endforeach
@@ -65,7 +67,7 @@
                 </div>
             </div>
         </div>
-    </x-card-index>
+    </x-card.index>
 </x-app-layout>
 
 {{-- DELETE MODAL --}}

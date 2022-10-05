@@ -33,48 +33,53 @@ class CategoryController extends Controller
         return redirect()->route('category.index')->with('success', __('Category created successfully.'));
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
+    public function show(Category $category)
     {
-        //
+        return view('backend.category.show', compact('category'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
+    public function edit(Category $category)
     {
-        //
+        return view('backend.category.edit', compact('category'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
+    public function update(CategoryRequest $request, Category $category)
     {
-        //
+        $attr = $request->validated();
+        $category->update($attr + [
+            'slug' => Str::slug($request->name),
+        ]);
+        return redirect()->route('category.index')->with('success', __('Category updated successfully.'));
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
+    public function destroy(Category $category)
     {
-        //
+        $category->delete();
+
+        return redirect()->route('category.index')->with('success', __('Category deleted successfully.'));
+    }
+
+    public function trash()
+    {
+        $category = Category::onlyTrashed()->paginate(5);
+        return view('backend.category.trash', compact('category'));
+    }
+
+    public function restore($id)
+    {
+        $category = Category::withTrashed()->findOrFail($id);
+        if ($category->trashed()) {
+            $category->restore();
+            return redirect()->route('category.trash')->with('success', 'Data successfully restored');
+        } else {
+            return redirect()->route('category.trash')->with('success', 'Data is not in trash');
+        }
+    }
+
+    public function deletePermanent($id)
+    {
+        $category = Category::withTrashed()->findOrFail($id);
+        $category->forceDelete();
+        return redirect()->route('category.trash')->with('success', 'Data permanently deleted!');
     }
 }

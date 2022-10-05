@@ -132,23 +132,11 @@ class UserController extends Controller
         return redirect()->route('profile', $user->id)->with('success', __('Profile updated successfully.'));
     }
 
-    public function userOnlineStatus()
-    {
-        $users = User::all();
-        foreach ($users as $user) {
-            if (Cache::has('user-is-online-' . $user->id))
-                echo $user->name . " is online. Last seen: " . Carbon::parse($user->last_seen)->diffForHumans() . " <br>";
-            else
-                echo $user->name . " is offline. Last seen: " . Carbon::parse($user->last_seen)->diffForHumans() . " <br>";
-        }
-    }
-
     public function destroy(User $user)
     {
-        $user->update(['deleted_by' => Auth::user()->id]);
         $user->delete();
 
-        return redirect()->route('users.index')->with('success', __('User deleted successfully.'));
+        return redirect()->route('users.index')->with('success', __('User success move to trash.'));
     }
 
     public function trash()
@@ -161,12 +149,9 @@ class UserController extends Controller
     {
         $user = User::withTrashed()->findOrFail($id);
         if ($user->trashed()) {
-            $user->update(['restore_by' => Auth::user()->profile->name]);
             $user->restore();
-
             return redirect()->route('users.trash')->with('success', 'Data successfully restored');
         } else {
-
             return redirect()->route('users.trash')->with('success', 'Data is not in trash');
         }
     }

@@ -35,23 +35,7 @@
         </div>
     </div>
 
-    <!-- Scripts -->
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
     @stack('scripts')
-    <script>
-        @if (Session::has('success'))
-            Toastify({
-                text: "{{ Session::get('success') }}",
-                duration: 4000,
-                newWindow: true,
-                close: true,
-                gravity: "top",
-                position: "center",
-            }).showToast();
-        @endif
-    </script>
-
-
 </body>
 
 </html>

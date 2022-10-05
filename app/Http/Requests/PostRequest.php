@@ -24,7 +24,12 @@ class PostRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'name' => 'required|min:3',
+            'content' => 'required',
+            'category_id' => 'required|exists:App\Models\Category,id',
+            'image' => 'required|image|max:2048',
+            'status' => 'required',
+            'published_at' => 'required',
         ];
     }
 }

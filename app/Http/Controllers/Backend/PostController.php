@@ -3,6 +3,9 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\PostRequest;
+use App\Models\Category;
+use App\Models\Post;
 use Illuminate\Http\Request;
 
 class PostController extends Controller
@@ -13,25 +16,19 @@ class PostController extends Controller
         return view('backend.posts.index');
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
-        return view('backend.posts.create');
+        $category = Category::all();
+        return view('backend.posts.create', compact('category'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+    public function store(PostRequest $request)
     {
-        //
+        $attr = $request->validated();
+        $attr['password'] = bcrypt($request->password);
+        Post::create($attr);
+
+        return redirect()->route('post.index')->with('success', __('Post created successfully.'));
     }
 
     /**

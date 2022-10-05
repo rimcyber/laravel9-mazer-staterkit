@@ -14,14 +14,14 @@ return new class extends Migration
     public function up()
     {
         Schema::create('categories', function (Blueprint $table) {
-            $table->uuid('id')->primary();
+            $table->id();
             $table->string('name');
             $table->string('slug')->nullable();
             $table->text('description')->nullable();
-            $table->uuid('created_by')->unsigned()->nullable();
-            $table->uuid('updated_by')->unsigned()->nullable();
-            $table->uuid('deleted_by')->unsigned()->nullable();
-            $table->uuid('restore_by')->unsigned()->nullable();
+            $table->string('created_by')->nullable();
+            $table->string('updated_by')->nullable();
+            $table->string('deleted_by')->nullable();
+            $table->string('restore_by')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

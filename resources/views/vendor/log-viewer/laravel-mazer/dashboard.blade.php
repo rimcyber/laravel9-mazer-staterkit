@@ -1,7 +1,12 @@
 <x-app-layout>
     @include('backend.layouts.log-viewer-style')
-    <x-card-index :icon="'inboxes-fill'" :title="'Dashboard'" :btn1_link="route('dashboard')" :btn1_color="'warning'" :btn1_title="'Back'"
-        :btn1_icon="'reply-fill'" :btn2_link="url('admin/log-viewer/logs')" :btn2_color="'secondary'" :btn2_title="'Logs by Date'" :btn2_icon="'journal-text'">
+    <x-card.index>
+        <x-slot name="header">
+            <x-card.title :icon="'inboxes-fill'" :title="'Dashboard'"></x-card.title>
+            <div>
+                <x-button.view :href="url('admin/log-viewer/logs')"></x-button.view>
+            </div>
+        </x-slot>
         <div class="row">
             <div class="col-md-6 col-lg-3">
                 <canvas id="stats-doughnut-chart" height="300" class="mb-3"></canvas>
@@ -31,9 +36,10 @@
                 </div>
             </div>
         </div>
-    </x-card-index>
+    </x-card.index>
 </x-app-layout>
 <script src="https://code.jquery.com/jquery-3.2.1.min.js" crossorigin="anonymous"></script>
+<script src="{{ Vite::asset('resources/js/Chart.min.js') }}"></script>
 <script>
     $(function() {
         new Chart(document.getElementById("stats-doughnut-chart"), {

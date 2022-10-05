@@ -1,6 +1,12 @@
 <x-app-layout>
-    <x-card-index :icon="'people-fill'" :title="'Profile'" :btn1_link="route('profile.edit', $user->id)" :btn1_color="'primary'" :btn1_title="'Edit'"
-        :btn1_icon="'wrench-adjustable'" :btn2_link="route('users.index')" :btn2_color="'warning'" :btn2_title="'Back'" :btn2_icon="'reply-fill'">
+    <x-card.index>
+        <x-slot name="header">
+            <x-card.title :icon="'people-fill'" :title="'Profile'"></x-card.title>
+            <div>
+                <x-button.edit :href="route('profile.edit', $user->id)"></x-button.edit>
+                <x-button.back :href="route('users.index')"></x-button.back>
+            </div>
+        </x-slot>
         <table class="table table-hover mb-0">
             <thead>
                 <tr>
@@ -140,5 +146,11 @@
                 </tr>
             </tbody>
         </table>
-    </x-card-index>
+        <x-slot name="footer">
+            <div></div>
+            <div>
+                <x-button.back :href="route('users.index')"></x-button.back>
+            </div>
+        </x-slot>
+    </x-card.index>
 </x-app-layout>

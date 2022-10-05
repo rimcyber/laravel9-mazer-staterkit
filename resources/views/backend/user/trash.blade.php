@@ -1,14 +1,19 @@
 <x-app-layout>
-    <x-card-index :icon="'people-fill'" :title="'Users in Trash'" :btn1_link="''" :btn1_color="''" :btn1_title="''"
-        :btn1_icon="''" :btn2_link="route('users.index')" :btn2_color="'warning'" :btn2_title="'Back'" :btn2_icon="'reply-fill'">
+    <x-card.nofooter>
+        <x-slot name="header">
+            <x-card.title :icon="'people-fill'" :title="'Users Trash'"></x-card.title>
+            <div>
+                <x-button.back :href="route('users.index')"></x-button.back>
+            </div>
+        </x-slot>
         <table class="table table-hover mb-0">
             <thead>
                 <tr>
                     <th>NAME</th>
                     <th>EMAIL</th>
+                    <th>STATUS</th>
                     <th>AVATAR</th>
                     <th>Delete At</th>
-                    <th>Delete By</th>
                     <th class="text-center">ACTION</th>
                 </tr>
             </thead>
@@ -17,6 +22,13 @@
                     <tr>
                         <td>{{ $user->profile->name ?? null }}</td>
                         <td>{{ $user->email }}</td>
+                        <td>
+                            @if ($user->status === 1)
+                                <span class="badge bg-success">Active</span>
+                            @else
+                                <span class="badge bg-danger">Blocked</span>
+                            @endif
+                        </td>
                         <td>
                             <div class="avatar avatar-xl">
                                 @if (empty($user->profile->avatar))
@@ -27,22 +39,15 @@
                             </div>
                         </td>
                         <td>
-                            <small class="text-muted">
-                                {{ \Carbon\Carbon::parse($user->deleted_at)->diffForHumans() }}
-                            </small>
+                            {{ \Carbon\Carbon::parse($user->deleted_at)->diffForHumans() }}
                         </td>
-                        <td>{{ $user->deleted_by }}</td>
                         <td class="text-center">
-                            <x-btn-icon-form :action="route('users.restore', $user->id)" :method="'post'" :color="'success'" :title="'Restore'"
-                                :icon="'recycle'">
-                            </x-btn-icon-form>
-                            <x-btn-icon-form :action="route('users.force', $user->id)" :method="'delete'" :color="'danger'" :title="'Delete'"
-                                :icon="'trash-fill'">
-                            </x-btn-icon-form>
+                            <x-button.restore :action="route('users.restore', $user->id)"></x-button.restore>
+                            <x-button.force :action="route('users.force', $user->id)"></x-button.force>
                         </td>
                     </tr>
                 @endforeach
             </tbody>
         </table>
-    </x-card-index>
+    </x-card.nofooter>
 </x-app-layout>

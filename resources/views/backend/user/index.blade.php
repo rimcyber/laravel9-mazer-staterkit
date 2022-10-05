@@ -1,6 +1,12 @@
 <x-app-layout>
-    <x-card-index :icon="'people-fill'" :title="'Users'" :btn1_link="route('users.create')" :btn1_color="'success'" :btn1_title="'Add'"
-        :btn1_icon="'plus-circle-fill'" :btn2_link="route('users.trash')" :btn2_color="'secondary'" :btn2_title="'View Trash'" :btn2_icon="'trash3-fill'">
+    <x-card.nofooter>
+        <x-slot name="header">
+            <x-card.title :icon="'people-fill'" :title="'Users'"></x-card.title>
+            <div>
+                <x-button.add :href="route('users.create')"></x-button.add>
+                <x-button.trash :href="route('users.trash')"></x-button.trash>
+            </div>
+        </x-slot>
         <table class="table table-hover mb-0">
             <thead>
                 <tr>
@@ -51,28 +57,19 @@
                             </div>
                         </td>
                         <td class="text-center">
-                            <x-btn-icon :href="route('users.show', $user->id)" :color="'success'" :icon="'eye-fill'" :title="'Show'">
-                            </x-btn-icon>
-                            <x-btn-icon :href="route('users.edit', $user->id)" :color="'primary'" :icon="'wrench-adjustable'" :title="'Edit'">
-                            </x-btn-icon>
-                            <x-btn-icon :href="route('users.password', $user->id)" :color="'info'" :icon="'key-fill'" :title="'Change Password'">
-                            </x-btn-icon>
+                            <x-button.view :href="route('users.show', $user->id)"></x-button.view>
+                            <x-button.edit :href="route('users.edit', $user->id)"></x-button.edit>
+                            <x-button.password :href="route('users.password', $user->id)"></x-button.password>
                             @if ($user->status === 1)
-                                <x-btn-icon-form :action="route('users.status', $user->id)" :method="'put'" :color="'danger'"
-                                    :title="'Block'" :icon="'x-circle-fill'">
-                                </x-btn-icon-form>
+                                <x-button.block :action="route('users.status', $user->id)"></x-button.block>
                             @else
-                                <x-btn-icon-form :action="route('users.status', $user->id)" :method="'put'" :color="'info'"
-                                    :title="'Activate'" :icon="'check-circle-fill'">
-                                </x-btn-icon-form>
+                                <x-button.active :action="route('users.status', $user->id)"></x-button.active>
                             @endif
-                            <x-btn-icon-form :action="route('users.destroy', $user->id)" :method="'delete'" :color="'danger'" :title="'Delete'"
-                                :icon="'trash-fill'">
-                            </x-btn-icon-form>
+                            <x-button.delete :action="route('users.destroy', $user->id)"></x-button.delete>
                         </td>
                     </tr>
                 @endforeach
             </tbody>
         </table>
-    </x-card-index>
+    </x-card.nofooter>
 </x-app-layout>

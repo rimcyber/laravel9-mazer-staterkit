@@ -8,10 +8,4 @@ import '../css/font-awesome-all.min.css';
 // js
 import './mazerapp';
 import './bootstrap';
-import './Chart.min';
 
-
-import.meta.glob([
-    '../images/**',
-    '../fonts/**',
-]);

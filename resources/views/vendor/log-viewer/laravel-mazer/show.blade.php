@@ -1,7 +1,12 @@
 <x-app-layout>
     @include('backend.layouts.log-viewer-style')
-    <x-card-index :icon="'journal-text'" :title="'Log ' . $log->date" :btn1_link="''" :btn1_color="''" :btn1_title="''"
-        :btn1_icon="''" :btn2_link="url('admin/log-viewer/logs')" :btn2_color="'warning'" :btn2_title="'Back'" :btn2_icon="'reply-fill'">
+    <x-card.index>
+        <x-slot name="header">
+            <x-card.title :icon="'journal-text'" :title="'Log ' . $log->date"></x-card.title>
+            <div>
+                <x-button.back :href="url('admin/log-viewer/logs')"></x-button.back>
+            </div>
+        </x-slot>
         <div class="row">
             <div class="col-lg-2">
                 {{-- Log Menu --}}
@@ -194,5 +199,5 @@
                 {!! $entries->appends(compact('query'))->render() !!}
             </div>
         </div>
-    </x-card-index>
+    </x-card.index>
 </x-app-layout>

@@ -48,7 +48,6 @@ Route::group(['namespace' => 'App\Http\Controllers\Backend', 'prefix' => 'admin'
     Route::put('users/status/{id}', 'UserController@status')->name('users.status');
     Route::get('users/password/{id}', 'UserController@password')->name('users.password');
     Route::put('users/passwordUpdate/{id}', 'UserController@passwordUpdate')->name('users.passwordUpdate');
-    Route::get('status', 'UserController@userOnlineStatus');
     Route::get('profile/{user}', 'UserController@show')->name('profile');
     Route::get('profile/{id}/edit', 'UserController@profile')->name('profile.edit');
     Route::put('profile/{id}/update', 'UserController@profileUpdate')->name('profile.update');
@@ -68,11 +67,12 @@ Route::group(['namespace' => 'App\Http\Controllers\Backend', 'prefix' => 'admin'
     *
     * ---------------------------------------------------------------------
     */
-    Route::resource('article/category', CategoryController::class);
-    Route::get('article/category/trash', 'CategoryController@trash')->name('category.trash');
-    Route::post('article/category/{id}/restore', 'CategoryController@restore')->name('category.restore');
-    Route::delete('article/category/force/{id}', 'CategoryController@deletePermanent')->name('category.force');
-
+    Route::group(['prefix' => 'article'], function () {
+        Route::resource('category', CategoryController::class);
+        Route::get('category-trash', 'CategoryController@trash')->name('category.trash');
+        Route::post('category/{id}/restore', 'CategoryController@restore')->name('category.restore');
+        Route::delete('category/force/{id}', 'CategoryController@deletePermanent')->name('category.force');
+    });
     /*
     *
     *  Post Routes

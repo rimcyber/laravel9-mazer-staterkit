@@ -23,10 +23,10 @@ return new class extends Migration
             $table->string('last_ip')->nullable();
             $table->integer('login_count')->default(0);
             $table->timestamp('last_seen')->nullable();
-            $table->integer('created_by')->unsigned()->nullable();
-            $table->integer('updated_by')->unsigned()->nullable();
-            $table->integer('deleted_by')->unsigned()->nullable();
-            $table->integer('restore_by')->unsigned()->nullable();
+            $table->uuid('created_by')->nullable();
+            $table->uuid('updated_by')->nullable();
+            $table->uuid('deleted_by')->nullable();
+            $table->uuid('restore_by')->nullable();
             $table->rememberToken();
             $table->timestamps();
             $table->softDeletes();

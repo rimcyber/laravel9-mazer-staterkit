@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('settings', function (Blueprint $table) {
-            $table->uuid('id')->primary();
+            $table->id();
             $table->string('app_name')->nullable();
             $table->string('footer_text')->nullable();
             $table->string('email')->nullable();
@@ -31,10 +31,10 @@ return new class extends Migration
             $table->string('meta_twitter_site')->nullable();
             $table->string('meta_twitter_creator')->nullable();
             $table->string('google_analytics')->nullable();
-            $table->uuid('created_by')->unsigned()->nullable();
-            $table->uuid('updated_by')->unsigned()->nullable();
-            $table->uuid('deleted_by')->unsigned()->nullable();
-            $table->uuid('restore_by')->unsigned()->nullable();
+            $table->string('created_by')->nullable();
+            $table->string('updated_by')->nullable();
+            $table->string('deleted_by')->nullable();
+            $table->string('restore_by')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

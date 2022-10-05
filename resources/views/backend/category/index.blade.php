@@ -1,6 +1,12 @@
 <x-app-layout>
-    <x-card-index :icon="'menu-button-fill'" :title="'Categories'" :btn1_link="route('category.create')" :btn1_color="'success'" :btn1_title="'Add'"
-        :btn1_icon="'plus-circle-fill'" :btn2_link="route('category.trash')" :btn2_color="'secondary'" :btn2_title="'View Trash'" :btn2_icon="'trash3-fill'">
+    <x-card.nofooter>
+        <x-slot name="header">
+            <x-card.title :icon="'menu-button-fill'" :title="'Categories'"></x-card.title>
+            <div>
+                <x-button.add :href="route('category.create')"></x-button.add>
+                <x-button.trash :href="route('category.trash')"></x-button.trash>
+            </div>
+        </x-slot>
         <table class="table table-hover mb-0">
             <thead>
                 <tr>
@@ -18,10 +24,14 @@
                         <td>{{ $cat->name }}</td>
                         <td>{{ $cat->created_at }}</td>
                         <td>{{ $cat->created_by }}</td>
-                        <td></td>
+                        <td class="text-center">
+                            <x-button.view :href="route('category.show', $cat->slug)"></x-button.view>
+                            <x-button.edit :href="route('category.edit', $cat->slug)"> </x-button.edit>
+                            <x-button.delete :action="route('category.destroy', $cat->slug)"></x-button.delete>
+                        </td>
                     </tr>
                 @endforeach
             </tbody>
         </table>
-    </x-card-index>
+    </x-card.nofooter>
 </x-app-layout>

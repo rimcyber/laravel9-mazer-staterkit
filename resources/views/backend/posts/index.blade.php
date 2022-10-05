@@ -1,6 +1,12 @@
 <x-app-layout>
-    <x-card-index :icon="'newspaper'" :title="'Posts'" :btn1_link="route('post.create')" :btn1_color="'success'" :btn1_title="'Add'"
-        :btn1_icon="'plus-circle-fill'" :btn2_link="route('post.trash')" :btn2_color="'secondary'" :btn2_title="'View Trash'" :btn2_icon="'trash3-fill'">
+    <x-card.nofooter>
+        <x-slot name="header">
+            <x-card.title :icon="'newspaper'" :title="'Posts'"></x-card.title>
+            <div>
+                <x-button.add :href="route('post.create')"></x-button.add>
+                <x-button.trash :href="route('post.trash')"></x-button.trash>
+            </div>
+        </x-slot>
         <table class="table table-hover mb-0">
             <thead>
                 <tr>
@@ -8,7 +14,6 @@
                     <th>TITLE</th>
                     <th>CATEGORIES</th>
                     <th>STATUS</th>
-                    <th>CREATE BY</th>
                     <th>PUBLISH AT</th>
                     <th class="text-center">ACTION</th>
                 </tr>
@@ -16,5 +21,5 @@
             <tbody>
             </tbody>
         </table>
-    </x-card-index>
+    </x-card.nofooter>
 </x-app-layout>

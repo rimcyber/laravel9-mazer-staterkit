@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('posts', function (Blueprint $table) {
-            $table->uuid('id')->primary();
+            $table->id();
             $table->string('name');
             $table->string('slug')->nullable();
             $table->text('content')->nullable();
@@ -27,10 +27,10 @@ return new class extends Migration
             $table->integer('status')->nullable();
             $table->integer('moderated_by')->unsigned()->nullable();
             $table->datetime('moderated_at')->nullable();
-            $table->uuid('created_by')->unsigned()->nullable();
-            $table->uuid('updated_by')->unsigned()->nullable();
-            $table->uuid('deleted_by')->unsigned()->nullable();
-            $table->uuid('restore_by')->unsigned()->nullable();
+            $table->string('created_by')->nullable();
+            $table->string('updated_by')->nullable();
+            $table->string('deleted_by')->nullable();
+            $table->string('restore_by')->nullable();
             $table->timestamp('published_at')->nullable();
             $table->timestamps();
             $table->softDeletes();
