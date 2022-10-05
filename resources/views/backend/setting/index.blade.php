@@ -5,7 +5,7 @@
             <x-slot name="header">
                 <x-card.title :icon="'wrench-adjustable-circle-fill'" :title="'Settings'"></x-card.title>
             </x-slot>
-            <x-card.nofooter>
+            <x-card.shadow>
                 <x-slot name="header">
                     <x-card.title :icon="'exclude'" :title="'General'"></x-card.title>
                 </x-slot>
@@ -13,15 +13,15 @@
                 <x-input.2 :label="'App Name'" :name="'app_name'" :type="'text'" :value="old('app_name', $setting->app_name ?? null)"></x-input.2>
                 <x-input.2 :label="'Footer Text'" :name="'footer_text'" :type="'text'" :value="old('footer_text', $setting->footer_text ?? null)">
                 </x-input.2>
-            </x-card.nofooter>
-            <x-card.nofooter>
+            </x-card.shadow>
+            <x-card.shadow>
                 <x-slot name="header">
                     <x-card.title :icon="'envelope-fill'" :title="'Email'"></x-card.title>
                 </x-slot>
                 <x-input.1 :label="'Email '" :name="'email'" :type="'text'" :value="old('email', $setting->email ?? null)">
                 </x-input.1>
-            </x-card.nofooter>
-            <x-card.nofooter>
+            </x-card.shadow>
+            <x-card.shadow>
                 <x-slot name="header">
                     <x-card.title :icon="'at'" :title="'Social Profiles'"></x-card.title>
                 </x-slot>
@@ -35,8 +35,8 @@
                 </x-input.2>
                 <x-input.2 :label="'Youtube Channel URL'" :name="'youtube_url'" :type="'text'" :value="old('youtube_url', $setting->youtube_url ?? null)">
                 </x-input.2>
-            </x-card.nofooter>
-            <x-card.nofooter>
+            </x-card.shadow>
+            <x-card.shadow>
                 <x-slot name="header">
                     <x-card.title :icon="'globe'" :title="'Metadata'"></x-card.title>
                 </x-slot>
@@ -54,14 +54,14 @@
                 </x-input.2>
                 <x-input.2 :label="'Meta Twitter Creator Account'" :name="'meta_twitter_creator'" :type="'text'" :value="old('meta_twitter_creator', $setting->meta_twitter_creator ?? null)">
                 </x-input.2>
-            </x-card.nofooter>
-            <x-card.nofooter>
+            </x-card.shadow>
+            <x-card.shadow>
                 <x-slot name="header">
                     <x-card.title :icon="'graph-up-arrow'" :title="'Analytics'"></x-card.title>
                 </x-slot>
                 <x-input.textarea-full :label="'Google Analytics'" :name="'google_analytics'" :type="'text'" :value="old('google_analytics', $setting->google_analytics ?? null)">
                 </x-input.textarea-full>
-            </x-card.nofooter>
+            </x-card.shadow>
             <x-slot name="footer">
                 <x-button.update></x-button.update>
             </x-slot>
